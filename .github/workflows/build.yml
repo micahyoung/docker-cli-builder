@@ -26,6 +26,6 @@ jobs:
           $env:GOPATH="$env:USERPROFILE\go"
           git clone -q --branch=v${env:DOCKER_VERSION} --single-branch https://github.com/docker/cli.git ${env:GOPATH}\src\github.com\docker\cli
           
-          cd ${env:GOPATH}\github.com\docker\cli
+          cd ${env:GOPATH}\src\github.com\docker\cli
           powershell -File .\scripts\make.ps1 -Binary
         shell: powershell
