@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Set up go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.15'
+      - name: Build docker CLI
+        env:
+          VERSION: 20.10.5
+        run: |
+          curl -o cli.tar.gz -L https://github.com/docker/cli/archive/refs/tags/v$VERSION.tar.gz
+          mkdir src
+          tar -x -f cli.tar.gz -C src
+          cd src
+          go build -o docker.exe ./cmd/docker
+        shell: bash
