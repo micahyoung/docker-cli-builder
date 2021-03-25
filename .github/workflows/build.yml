@@ -21,14 +21,11 @@ jobs:
           go-version: '1.15'
       - name: Build docker CLI
         env:
-          VERSION: 20.10.5
+          DOCKER_VERSION: 20.10.5
         run: |
-          curl.exe -o cli.tar.gz -L https://github.com/docker/cli/archive/refs/tags/v${env:VERSION}.tar.gz
-          tar.exe -x -f cli.tar.gz
-          
           $env:GOPATH="$env:USERPROFILE\go"
-          mkdir $env:GOPATH\github.com\docker
-          move .\cli-${env:VERSION} $env:GOPATH\github.com\docker\cli
-          cd $env:GOPATH\github.com\docker\cli
+          git clone -q --branch=v${env:DOCKER_VERSION} --single-branch https://github.com/docker/cli.git ${env:GOPATH}\src\github.com\docker\cli
+          
+          cd ${env:GOPATH}\github.com\docker\cli
           powershell -File .\scripts\make.ps1 -Binary
         shell: powershell
