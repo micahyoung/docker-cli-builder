@@ -27,5 +27,5 @@ jobs:
           mkdir src
           tar -x -f cli.tar.gz -C src
           cd src
-          go build -o docker.exe ./cmd/docker
+          GOPATH=$PWD go build -o docker.exe ./cmd/docker
         shell: bash
