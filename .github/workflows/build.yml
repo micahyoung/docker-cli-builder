@@ -24,8 +24,9 @@ jobs:
           VERSION: 20.10.5
         run: |
           curl -o cli.tar.gz -L https://github.com/docker/cli/archive/refs/tags/v$VERSION.tar.gz
-          mkdir src
-          tar -x -f cli.tar.gz -C src
-          cd src
-          GOPATH=$PWD go build -o docker.exe ./cmd/docker
+          export GOPATH=$HOME/go
+          mkdir -p $GOPATH/github.com/docker/cli
+          tar -x -f cli.tar.gz -C $GOPATH/github.com/docker/cli
+          cd $GOPATH/github.com/docker/cli
+          go build -o docker.exe ./cmd/docker
         shell: bash
