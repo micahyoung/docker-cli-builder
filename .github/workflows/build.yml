@@ -23,10 +23,10 @@ jobs:
         env:
           VERSION: 20.10.5
         run: |
-          curl -o cli.tar.gz -L https://github.com/docker/cli/archive/refs/tags/v$VERSION.tar.gz
-          export GOPATH=$HOME/go
-          mkdir -p $GOPATH/github.com/docker/cli
-          tar -x -f cli.tar.gz -C $GOPATH/github.com/docker/cli
-          cd $GOPATH/github.com/docker/cli
-          go build -o docker.exe ./cmd/docker
-        shell: bash
+          curl.exe -o cli.tar.gz -L https://github.com/docker/cli/archive/refs/tags/v$VERSION.tar.gz
+          $env:GOPATH="$env:USERPROFILE\go"
+          mkdir $env:GOPATH\github.com\docker\cli
+          tar.exe -x -f cli.tar.gz -C $env:GOPATH\github.com\docker\cli
+          cd $env:GOPATH\github.com\docker\cli
+          powershell -File .\scripts\make.ps1 -Binary
+        shell: powershell
